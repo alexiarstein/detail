@@ -37,7 +37,7 @@ Detail is a small application that prints information about a file, directory or
 
 
 # Author:
-**Alexia Steinberg <mistysteinberg@gmail.com>**
+**Alexia R. Stein  <mistysteinberg@gmail.com>**
 
 ## Changelog:
 
@@ -54,8 +54,7 @@ Contributions are needed. I need help translating this script to the following l
  - Japanese
  - German
  - Russian
- - Italian
- - 
+ - Italian 
   
 
 # TO DO:
