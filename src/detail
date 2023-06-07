@@ -1,0 +1,210 @@
+#!/bin/bash
+# Detail v1.1.2 
+# Author: Alexia Rivera Steinberg <mistysteinberg@gmail.com>
+# https://github.com/alexiarstein
+# -------------------------------
+# LICENSE: GNU GPL 3.0 (See License for more info)
+
+version="1.1.2"
+cr=$(tput setaf 1)
+cg=$(tput setaf 2)
+cy=$(tput setaf 3)
+cb=$(tput setaf 4)
+cp=$(tput setaf 5)
+cc=$(tput setaf 6)
+c0=$(tput sgr0)
+tmpdir="/tmp/detail-${version}"
+function set_ui_en() {
+    echo "ui_file='File'" >> ~/.detail.conf
+    echo "ui_dir='Directory'" >> ~/.detail.conf
+    echo "ui_link='Link'" >> ~/.detail.conf
+    echo "ui_type='Type'" >> ~/.detail.conf
+    echo "ui_owner='Owner'" >> ~/.detail.conf
+    echo "ui_group='Group'" >> ~/.detail.conf
+    echo "ui_system='Everyone Else'" >> ~/.detail.conf
+    echo "ui_perm_r='Read'" >> ~/.detail.conf
+    echo "ui_perm_w='Write'" >> ~/.detail.conf
+    echo "ui_perm_x='Execute'" >> ~/.detail.conf
+    echo "ui_perm_no='no'" >> ~/.detail.conf
+    echo "ui_perm_yes='yes'" >> ~/.detail.conf
+    echo "error_msg='Invalid Link, File, or Directory Name'" >> ~/.detail.conf
+    echo "error_msg2='Usage: detail (or det) <file/link/directory>'" >> ~/.detail.conf
+    echo "error_msg3='Please Try Again.'" >> ~/.detail.conf
+}
+
+function set_ui_es() {
+    echo "ui_file='Archivo'" >> ~/.detail.conf
+    echo "ui_dir='Directorio'" >> ~/.detail.conf
+    echo "ui_link='Link'" >> ~/.detail.conf
+    echo "ui_name='Nombre'" >> ~/.detail.conf
+    echo "ui_type='Tipo'" >> ~/.detail.conf
+    echo "ui_owner='Dueño/a'" >> ~/.detail.conf
+    echo "ui_group='Grupo'" >> ~/.detail.conf
+    echo "ui_system='Sistema (Todos)'" >> ~/.detail.conf
+    echo "ui_perm_r='Lectura'" >> ~/.detail.conf
+    echo "ui_perm_w='Escritura'" >> ~/.detail.conf
+    echo "ui_perm_x='Ejecución'" >> ~/.detail.conf
+    echo "ui_perm_yes='si'" >> ~/.detail.conf
+    echo "ui_perm_no='no'" >> ~/.detail.conf
+    echo "error_msg='Nombre de Directorio, Link o Archivo incorrecto'" >> ~/.detail.conf
+    echo "error_msg2='Uso: detail (o det) <archivo/link/directorio>'" >> ~/.detail.conf
+    echo "error_msg3='Por favor intente nuevamente'" >> ~/.detail.conf
+}
+
+if [[ ! -e ~/.detail.conf ]]; then
+clear
+    echo "[English] It seems like this is your first time running Detail $version"
+    echo "Would you like this software to run in English or Spanish?"
+    echo ""
+    echo "[Español] Parece que estás utilizando detail $version por primera vez"
+    echo "Necesitás configurar el idioma para continuar"
+    echo ""
+	echo "Available Languages"
+	echo "1: English"
+	echo "2: Español"
+	echo ""
+	echo -ne "Selection: [1/2] \>_ " 
+    	read -r x
+    	case $x in
+		 1)
+		set_ui_en
+		echo "Selected Language: English"
+		echo "Please run detail again"
+            	exit 1
+		;;
+        	2)
+		set_ui_es
+	        echo "Idioma Seleccionado: Español"
+ 		echo "Por favor ejecute detail nuevamente"
+           	exit 1
+		;;
+        	*)
+            	echo "Error: Options are 1 or 2"
+            	exit 1
+            	;;
+    esac
+else
+    source ~/.detail.conf
+fi
+
+stat=$(stat -c '%A' "$1" 2>/dev/null)
+if [[ $? -ne 0 ]]; then
+    echo ""
+    echo "${cp}Detail $version - ${cc}Ale Stein ${cp}<mistysteinberg@gmail.com>${c0}"
+    echo "${cr}ERROR:${c0} Invalid directory, link, or file name"
+    echo "Usage: detail (or det) <file/link/directory>"
+    echo "Please try again."
+    exit 1
+else
+    stat=$(stat -c '%A' "$1")
+    nombre=$1
+    tipo=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c1)
+    chmod=$(stat -c '%a' "$1")
+    user=$(stat -c '%U' "$1")
+    grupo=$(stat -c '%G' "$1")
+    urp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c2) 
+    uwp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c3)
+    uxp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c4)
+    grp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c5)
+    gwp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c6)
+    gxp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c7)
+    erp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c8)
+    ewp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c9)
+    exp=$(stat -c '%A' "$1" | awk '{print $1}' | cut -c10)
+
+    if [[ "$tipo" == "-" ]]; then
+        tipo="${ui_file}"
+    elif [[ "$tipo" == "d" ]]; then
+        tipo="${ui_dir}"
+    elif [[ "$tipo" == "l" ]]; then
+        tipo="${ui_link}"
+    fi
+
+    ########### PERMISOS USER ###########
+    if [[ "$urp" == "r" ]]; then
+        urp="${ui_perm_yes}"
+    else 
+        urp="${ui_perm_no}"
+    fi
+
+    if [[ "$uwp" == "w" ]]; then
+        uwp="${ui_perm_yes}"
+    else
+        uwp="${ui_perm_no}"
+    fi
+
+    if [[ "$uxp" == "x" ]]; then
+        uxp="${ui_perm_yes}"
+    else
+        uxp="${ui_perm_no}"
+    fi
+
+    if [[ "$grp" == "r" ]]; then
+        grp="${ui_perm_yes}"
+    else
+        grp="${ui_perm_no}"
+    fi
+
+    if [[ "$gwp" == "w" ]]; then
+        gwp="${ui_perm_yes}"
+    else
+        gwp="${ui_perm_no}"
+    fi
+
+    if [[ "$gxp" == "x" ]]; then
+        gxp="${ui_perm_yes}"
+    else
+        gxp="${ui_perm_no}"
+    fi
+
+    if [[ "$erp" == "r" ]]; then
+        erp="${ui_perm_yes}"
+    else
+        erp="${ui_perm_no}"
+    fi
+
+    if [[ "$ewp" == "w" ]]; then
+        ewp="${ui_perm_yes}"
+    else
+        ewp="${ui_perm_no}"
+    fi
+
+    if [[ "$exp" == "x" ]]; then
+        exp="${ui_perm_yes}"
+    else
+        exp="${ui_perm_no}"
+    fi
+
+    mkfifo f_out
+    {
+        echo "${ui_name} $nombre | ${ui_type}: $tipo"
+        echo "CHMOD: $chmod"
+        echo "${ui_owner}: $user"
+        echo "${ui_perm_r}: $urp"
+        echo "${ui_perm_w}: $uwp"
+        echo "${ui_perm_x}: $uxp"
+        echo "${ui_group}: $grupo"
+        echo "${ui_perm_r}: $grp"
+        echo "${ui_perm_w}: $gwp"
+        echo "${ui_perm_x}: $gxp"
+        echo "${ui_system}"
+        echo "${ui_perm_r}: $erp"
+        echo "${ui_perm_w}: $ewp"
+        echo "${ui_perm_x}: $exp"
+    } > f_out &
+mkdir -p $tmpdir
+    	cat f_out | tee > ${tmpdir}/f_datos
+    	datos=$(grep ${ui_type}: ${tmpdir}/f_datos)
+    	chmlvl=$(grep CHMOD ${tmpdir}/f_datos)
+    	echo ""
+    	echo "${cp}Detail ${version}${c0}"
+    	echo "${cc}$datos | $chmlvl${cg}" | tee > ${tmpdir}/f_fin
+    	cat ${tmpdir}/f_datos | grep -A3 "${ui_owner}" | sed 's/$/ |/' | column -tR2 | tee > ${tmpdir}/f_due
+    	cat ${tmpdir}/f_datos | grep -A3 "${ui_group}" | sed 's/$/ |/' | column -tR2 | tee > ${tmpdir}/f_gru
+    	cat ${tmpdir}/f_datos | grep -A3 "${ui_system}" | sed 's/$/ |/' | column -tR2 | tee > ${tmpdir}/f_resto
+    	paste -d ' ' ${tmpdir}/f_due ${tmpdir}/f_gru ${tmpdir}/f_resto | tee >> ${tmpdir}/f_fin
+    	cat ${tmpdir}/f_fin
+	rm ${tmpdir}/f_*
+	rm f_out
+fi
+tput sgr0
