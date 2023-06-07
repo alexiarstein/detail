@@ -1,6 +1,6 @@
 #!/bin/bash
-# Detail v1.0.6 
-# Author: Alexia Rivera Steinberg <mistysteinberg@icloud.com>
+# Detail v1.1.2 
+# Author: Alexia Rivera Steinberg <mistysteinberg@gmail.com>
 # https://github.com/alexiarstein
 # -------------------------------
 # LICENSE: GNU GPL 3.0 (See License for more info)
@@ -90,7 +90,7 @@ fi
 stat=$(stat -c '%A' "$1" 2>/dev/null)
 if [[ $? -ne 0 ]]; then
     echo ""
-    echo "${cp}Detail v1.0 - ${cc}Alexia Rivera ${cp}<alexia.sadc@gmail.com>${c0}"
+    echo "${cp}Detail $version - ${cc}Ale Stein ${cp}<mistysteinberg@gmail.com>${c0}"
     echo "${cr}ERROR:${c0} Invalid directory, link, or file name"
     echo "Usage: detail (or det) <file/link/directory>"
     echo "Please try again."
