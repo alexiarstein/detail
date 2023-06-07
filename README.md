@@ -58,5 +58,8 @@ Contributions are needed. I need help translating this script to the following l
   
 
 # TO DO:
-Create .deb and .rpm installer packages
-Create snap and flatpak containers
+
+ - ~~Create RPM package~~
+ - Create .deb package
+ - Create snap package
+ - Create flatpak package
