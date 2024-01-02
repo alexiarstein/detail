@@ -16,8 +16,8 @@ cc=$(tput setaf 6)
 c0=$(tput sgr0)
 tmpdir="/tmp/detail-${version}"
 
-echo 'function set_ui_en() {
-ui_file="File"
+function set_ui_en() {
+echo 'ui_file="File"
 ui_dir="Directory"
 ui_link="Link"
 ui_type="Type"
@@ -32,25 +32,26 @@ ui_perm_yes="yes"
 error_msg="Invalid Link, File, or Directory Name"
 error_msg2="Usage: detail (or det) <file/link/directory>"
 error_msg3="Please Try Again."
-} ' > ~/.detail.conf
-
+' > ~/.detail.conf
+}
 function set_ui_es() {
-    echo "ui_file='Archivo'" >> ~/.detail.conf
-    echo "ui_dir='Directorio'" >> ~/.detail.conf
-    echo "ui_link='Link'" >> ~/.detail.conf
-    echo "ui_name='Nombre'" >> ~/.detail.conf
-    echo "ui_type='Tipo'" >> ~/.detail.conf
-    echo "ui_owner='Dueño/a'" >> ~/.detail.conf
-    echo "ui_group='Grupo'" >> ~/.detail.conf
-    echo "ui_system='Sistema (Todos)'" >> ~/.detail.conf
-    echo "ui_perm_r='Lectura'" >> ~/.detail.conf
-    echo "ui_perm_w='Escritura'" >> ~/.detail.conf
-    echo "ui_perm_x='Ejecución'" >> ~/.detail.conf
-    echo "ui_perm_yes='si'" >> ~/.detail.conf
-    echo "ui_perm_no='no'" >> ~/.detail.conf
-    echo "error_msg='Nombre de Directorio, Link o Archivo incorrecto'" >> ~/.detail.conf
-    echo "error_msg2='Uso: detail (o det) <archivo/link/directorio>'" >> ~/.detail.conf
-    echo "error_msg3='Por favor intente nuevamente'" >> ~/.detail.conf
+echo 'ui_file="Archivo"
+    ui_dir="Directorio"
+    ui_link="Link"
+    ui_name="Nombre"
+    ui_type="Tipo"
+    ui_owner="Dueño/a"
+    ui_group="Grupo"
+    ui_system="Sistema (Todos)"
+    ui_perm_r="Lectura"
+    ui_perm_w="Escritura"
+    ui_perm_x="Ejecución"
+    ui_perm_yes="si"
+    ui_perm_no="no"
+    error_msg="Nombre de Directorio, Link o Archivo incorrecto"
+    error_msg2="Uso: detail (o det) <archivo/link/directorio>"
+    error_msg3="Por favor intente nuevamente"
+' > ~/.detail.conf
 }
 
 if [[ ! -e ~/.detail.conf ]]; then
