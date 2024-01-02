@@ -6,6 +6,7 @@
 # LICENSE: GNU GPL 3.0 (See License for more info)
 
 version="1.1.2"
+# colores
 cr=$(tput setaf 1)
 cg=$(tput setaf 2)
 cy=$(tput setaf 3)
@@ -14,23 +15,24 @@ cp=$(tput setaf 5)
 cc=$(tput setaf 6)
 c0=$(tput sgr0)
 tmpdir="/tmp/detail-${version}"
-function set_ui_en() {
-    echo "ui_file='File'" >> ~/.detail.conf
-    echo "ui_dir='Directory'" >> ~/.detail.conf
-    echo "ui_link='Link'" >> ~/.detail.conf
-    echo "ui_type='Type'" >> ~/.detail.conf
-    echo "ui_owner='Owner'" >> ~/.detail.conf
-    echo "ui_group='Group'" >> ~/.detail.conf
-    echo "ui_system='Everyone Else'" >> ~/.detail.conf
-    echo "ui_perm_r='Read'" >> ~/.detail.conf
-    echo "ui_perm_w='Write'" >> ~/.detail.conf
-    echo "ui_perm_x='Execute'" >> ~/.detail.conf
-    echo "ui_perm_no='no'" >> ~/.detail.conf
-    echo "ui_perm_yes='yes'" >> ~/.detail.conf
-    echo "error_msg='Invalid Link, File, or Directory Name'" >> ~/.detail.conf
-    echo "error_msg2='Usage: detail (or det) <file/link/directory>'" >> ~/.detail.conf
-    echo "error_msg3='Please Try Again.'" >> ~/.detail.conf
-}
+
+echo 'function set_ui_en() {
+ui_file="File"
+ui_dir="Directory"
+ui_link="Link"
+ui_type="Type"
+ui_owner="Owner"
+ui_group="Group"
+ui_system="Everyone Else"
+ui_perm_r="Read"
+ui_perm_w="Write"
+ui_perm_x="Execute"
+ui_perm_no="no"
+ui_perm_yes="yes"
+error_msg="Invalid Link, File, or Directory Name"
+error_msg2="Usage: detail (or det) <file/link/directory>"
+error_msg3="Please Try Again."
+} ' > ~/.detail.conf
 
 function set_ui_es() {
     echo "ui_file='Archivo'" >> ~/.detail.conf
