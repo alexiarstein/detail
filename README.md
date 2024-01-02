@@ -1,6 +1,6 @@
 # Detail
 
-Detail is a small application that prints information about a file, directory or link in a rather comprehensive and human format.
+Detail is a small application in bash that prints information about a file, directory or link in a rather comprehensive and human format.
 
     [alexia@goldenDogLinux]$ detail example.txt  
     Detail 1.1.2
@@ -37,7 +37,7 @@ Detail is a small application that prints information about a file, directory or
 
 
 # Author:
-**Alexia R. Stein  <mistysteinberg@gmail.com>**
+**Alexia Rivera Steinberg <alexiarstein@aol.com>**
 
 ## Changelog:
 
@@ -55,11 +55,4 @@ Contributions are needed. I need help translating this script to the following l
  - German
  - Russian
  - Italian 
-  
 
-# TO DO:
-
- - ~~Create RPM package~~
- - Create .deb package
- - Create snap package
- - Create flatpak package
