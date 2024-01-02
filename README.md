@@ -40,6 +40,8 @@ Detail is a small application in bash that prints information about a file, dire
 **Alexia Rivera Steinberg <alexiarstein@aol.com>**
 
 ## Changelog:
+**v1.1.3**
+02/01/2024: fixed minor bugs, typos, etc.
 
 **v1.1.2**
 06/06/2023: Added language support
